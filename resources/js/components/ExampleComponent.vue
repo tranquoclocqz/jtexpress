@@ -70,13 +70,13 @@ export default {
     methods: {
         fetch: async function () {
             this.calendarOptions.events = await axiosClient.get(
-                "http://localhost:8000/api/calendar",
+                "/calendar",
                 { params: { year: this.currentYear, month: this.currentMonth } }
             );
         },
         updateEvent: async function (formData) {
             return axiosClient.post(
-                `http://localhost:8000/api/calendar/${this.id}`,
+                `/calendar/${this.id}`,
                 formData
             );
         },
@@ -85,7 +85,7 @@ export default {
             bodyFormData.append("_method", "delete");
             axiosClient
                 .post(
-                    `http://localhost:8000/api/calendar/${this.id}`,
+                    `/calendar/${this.id}`,
                     bodyFormData
                 )
                 .then((response) => {
@@ -128,7 +128,7 @@ export default {
             bodyFormData.append("title", this.title);
             bodyFormData.append("date", this.date);
             axiosClient
-                .post("http://localhost:8000/api/calendar", bodyFormData)
+                .post("/calendar", bodyFormData)
                 .then((response) => {
                     if (response.success === "success") {
                         this.currentMonth = moment(this.date).format("MM");
